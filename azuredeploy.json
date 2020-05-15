@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "sites_FunctionApp_name": {
-            "defaultValue": "TestFunctionApp00012",
+            "defaultValue": "TestFunctionApp000122342322",
             "type": "String"
         },
         "serverfarms_SouthCentralUSPlan_externalid": {
