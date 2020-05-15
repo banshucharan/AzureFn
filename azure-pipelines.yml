@@ -13,7 +13,7 @@ steps:
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'AzureRmPipeline-conn'
+    azureResourceManagerConnection: 'NRG-AzureRmPipeline-Conn'
     subscriptionId: 'bfcfa7e7-f478-4007-955a-465dc9b65e39'
     action: 'Create Or Update Resource Group'
     resourceGroupName: 'NewResourceGroup'
