@@ -22,3 +22,4 @@ steps:
     csmFile: 'azuredeploy.json'
     deploymentMode: 'Incremental'
   
+ 
