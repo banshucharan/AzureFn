@@ -16,7 +16,7 @@ steps:
     azureResourceManagerConnection: 'AzureRmPipeline-conn'
     subscriptionId: 'bfcfa7e7-f478-4007-955a-465dc9b65e39'
     action: 'Create Or Update Resource Group'
-    resourceGroupName: 'TestSubscription'
+    resourceGroupName: 'NewResourceGroup'
     location: 'Central US'
     templateLocation: 'Linked artifact'
     csmFile: 'azuredeploy.json'
