@@ -2,12 +2,12 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "sites_MyAzureApp1_name": {
-            "defaultValue": "MyAzureApp1",
+        "sites_FunctionApp_name": {
+            "defaultValue": "TestFunctionApp00012",
             "type": "String"
         },
-        "serverfarms_ASP_TestSubscription_ab60_externalid": {
-            "defaultValue": "/subscriptions/bfcfa7e7-f478-4007-955a-465dc9b65e39/resourceGroups/TestSubscription/providers/Microsoft.Web/serverfarms/ASP-TestSubscription-ab60",
+        "serverfarms_SouthCentralUSPlan_externalid": {
+            "defaultValue": "/subscriptions/bfcfa7e7-f478-4007-955a-465dc9b65e39/resourceGroups/NewResourceGroup/providers/Microsoft.Web/serverfarms/SouthCentralUSPlan",
             "type": "String"
         }
     },
@@ -16,45 +16,45 @@
         {
             "type": "Microsoft.Web/sites",
             "apiVersion": "2018-11-01",
-            "name": "[parameters('sites_MyAzureApp1_name')]",
-            "location": "Central US",
+            "name": "[parameters('sites_FunctionApp_name')]",
+            "location": "South Central US",
             "kind": "functionapp",
             "properties": {
                 "enabled": true,
                 "hostNameSslStates": [
                     {
-                        "name": "myazureapp1.azurewebsites.net",
+                        "name": "functionapp120200515103137.azurewebsites.net",
                         "sslState": "Disabled",
                         "hostType": "Standard"
                     },
                     {
-                        "name": "myazureapp1.scm.azurewebsites.net",
+                        "name": "functionapp120200515103137.scm.azurewebsites.net",
                         "sslState": "Disabled",
                         "hostType": "Repository"
                     }
                 ],
-                "serverFarmId": "[parameters('serverfarms_ASP_TestSubscription_ab60_externalid')]",
+                "serverFarmId": "[parameters('serverfarms_SouthCentralUSPlan_externalid')]",
                 "reserved": false,
                 "isXenon": false,
                 "hyperV": false,
                 "siteConfig": {},
                 "scmSiteAlsoStopped": false,
-                "clientAffinityEnabled": true,
+                "clientAffinityEnabled": false,
                 "clientCertEnabled": false,
                 "hostNamesDisabled": false,
                 "containerSize": 1536,
                 "dailyMemoryTimeQuota": 0,
-                "httpsOnly": false,
+                "httpsOnly": true,
                 "redundancyMode": "None"
             }
         },
         {
             "type": "Microsoft.Web/sites/config",
             "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('sites_MyAzureApp1_name'), '/web')]",
-            "location": "Central US",
+            "name": "[concat(parameters('sites_FunctionApp_name'), '/web')]",
+            "location": "South Central US",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_MyAzureApp1_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_FunctionApp_name'))]"
             ],
             "properties": {
                 "numberOfWorkers": -1,
@@ -75,7 +75,7 @@
                 "httpLoggingEnabled": false,
                 "logsDirectorySizeLimit": 35,
                 "detailedErrorLoggingEnabled": false,
-                "publishingUsername": "$MyAzureApp1",
+                "publishingUsername": "$FunctionApp120200515103137",
                 "scmType": "None",
                 "use32BitWorkerProcess": true,
                 "webSocketsEnabled": false,
@@ -128,32 +128,50 @@
             }
         },
         {
-            "type": "Microsoft.Web/sites/functions",
+            "type": "Microsoft.Web/sites/deployments",
             "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('sites_MyAzureApp1_name'), '/MyNewFunTrigger')]",
-            "location": "Central US",
+            "name": "[concat(parameters('sites_FunctionApp_name'), '/b94bb780158b4d70846ef1f96f7b5d5d')]",
+            "location": "South Central US",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_MyAzureApp1_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_FunctionApp_name'))]"
             ],
             "properties": {
-                "script_root_path_href": "https://myazureapp1.azurewebsites.net/admin/vfs/site/wwwroot/MyNewFunTrigger/",
-                "script_href": "https://myazureapp1.azurewebsites.net/admin/vfs/site/wwwroot/MyNewFunTrigger/run.csx",
-                "config_href": "https://myazureapp1.azurewebsites.net/admin/vfs/site/wwwroot/MyNewFunTrigger/function.json",
-                "href": "https://myazureapp1.azurewebsites.net/admin/functions/MyNewFunTrigger",
-                "config": {},
-                "test_data": "{\r\n    \"name\": \"Azure\"\r\n}"
+                "status": 4,
+                "author_email": "N/A",
+                "author": "N/A",
+                "deployer": "Push-Deployer",
+                "message": "Created via a push deployment",
+                "start_time": "2020-05-15T05:03:58.2635734Z",
+                "end_time": "2020-05-15T05:04:07.2962471Z",
+                "active": true
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/functions",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('sites_FunctionApp_name'), '/Function1')]",
+            "location": "South Central US",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_FunctionApp_name'))]"
+            ],
+            "properties": {
+                "script_root_path_href": "https://functionapp120200515103137.azurewebsites.net/admin/vfs/site/wwwroot/Function1/",
+                "script_href": "https://functionapp120200515103137.azurewebsites.net/admin/vfs/site/wwwroot/bin/FunctionApp1.dll",
+                "config_href": "https://functionapp120200515103137.azurewebsites.net/admin/vfs/site/wwwroot/Function1/function.json",
+                "href": "https://functionapp120200515103137.azurewebsites.net/admin/functions/Function1",
+                "config": {}
             }
         },
         {
             "type": "Microsoft.Web/sites/hostNameBindings",
             "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('sites_MyAzureApp1_name'), '/', parameters('sites_MyAzureApp1_name'), '.azurewebsites.net')]",
-            "location": "Central US",
+            "name": "[concat(parameters('sites_FunctionApp_name'), '/', parameters('sites_FunctionApp_name'), '.azurewebsites.net')]",
+            "location": "South Central US",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_MyAzureApp1_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_FunctionApp_name'))]"
             ],
             "properties": {
-                "siteName": "MyAzureApp1",
+                "siteName": "FunctionApp120200515103137",
                 "hostNameType": "Verified"
             }
         }
