@@ -10,10 +10,10 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: NuGetCommand@2
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-    nuGetFeedType: 'internal'
-    publishVstsFeed: '4cbf0b0c-5b0c-4afa-9f80-87a21f27a80a/8a41aa38-d981-4512-a41c-9f1e41dc7168'
-    allowPackageConflicts: true
+    - task: NuGetCommand@2
+      inputs:
+        command: 'push'
+        packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+        nuGetFeedType: 'internal'
+        publishVstsFeed: '4cbf0b0c-5b0c-4afa-9f80-87a21f27a80a/8a41aa38-d981-4512-a41c-9f1e41dc7168'
+        allowPackageConflicts: true
