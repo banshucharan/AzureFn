@@ -2,7 +2,7 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
-
+ 
 trigger:
 - master
 
@@ -10,15 +10,10 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: AzureResourceManagerTemplateDeployment@3
-  inputs:
-    deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: 'NRG-AzureRmPipeline-Conn'
-    subscriptionId: 'bfcfa7e7-f478-4007-955a-465dc9b65e39'
-    action: 'Create Or Update Resource Group'
-    resourceGroupName: 'NewResourceGroup'
-    location: 'Central US'
-    templateLocation: 'Linked artifact'
-    csmFile: 'azuredeploy.json'
-    deploymentMode: 'Incremental'
-  
+    - task: NuGetCommand@2
+      inputs:
+        command: 'push'
+        packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+        nuGetFeedType: 'internal'
+        publishVstsFeed: '4cbf0b0c-5b0c-4afa-9f80-87a21f27a80a/8a41aa38-d981-4512-a41c-9f1e41dc7168'
+        allowPackageConflicts: true
